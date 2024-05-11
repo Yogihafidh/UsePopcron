@@ -65,6 +65,40 @@ export default function MovieDetails({
     },
     [selectedID]
   );
+
+  useEffect(
+    function () {
+      if (!title) return;
+      document.title = `Movie | ${title}`;
+
+      // Clean up Fungsi
+      return function () {
+        document.title = "usePopcron";
+      };
+    },
+    [title]
+  );
+
+  useEffect(
+    function () {
+      // Callback fungsi
+      function callBack(e) {
+        if (e.code === "Escape") {
+          onCloseMovie();
+        }
+      }
+
+      // Event DOM (Side  Effect)
+      document.addEventListener("keydown", callBack);
+
+      // Clean up fungsi
+      return function () {
+        document.removeEventListener("keydown", callBack);
+      };
+    },
+    [onCloseMovie]
+  );
+
   return (
     <div className="details">
       {isLoading ? (

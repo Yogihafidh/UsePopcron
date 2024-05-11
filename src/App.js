@@ -43,17 +43,20 @@ export default function App() {
 
   useEffect(
     function () {
+      // The AbortController API
+      const controller = new AbortController();
+
       async function fetchMovies() {
-        // Try Catch Block
         try {
           setIsLoading(true);
           setError("");
 
+          // Set signal property
           const res = await fetch(
-            `http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`
+            `http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`,
+            { signal: controller.signal }
           );
 
-          // Jika terdapat error atau status API false
           if (!res.ok)
             throw new Error("Something went wrong with fatching movies");
 
@@ -68,14 +71,23 @@ export default function App() {
           // Jika query tidak ditemukan
           if (data.Response === "False") throw new Error("Movie not found");
           setMovies(data.Search);
+          setError("");
         } catch (err) {
-          console.error(err.message);
-          setError(err.message);
+          // Setting up Error
+          if (err.name !== "AbortError") {
+            setError(err.message);
+            console.error(err.message);
+          }
         } finally {
           setIsLoading(false);
         }
       }
       fetchMovies();
+
+      // Clean up Fungsi
+      return function () {
+        controller.abort();
+      };
     },
     [query]
   );
