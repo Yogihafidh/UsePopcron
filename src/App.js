@@ -1,4 +1,4 @@
-import { Children, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { tempMovieData, tempWatchedData } from "./data";
 import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage.js";
