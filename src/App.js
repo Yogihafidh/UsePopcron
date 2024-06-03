@@ -11,6 +11,8 @@ import MovieList from "./MovieList.js";
 import MovieDetails from "./MovieDetails.js";
 import WatchedSummary from "./WatchedSummary.js";
 import WatchedMovieList from "./WatchedMovieList.js";
+import { useMovies } from "./useMovies.js";
+import { useLocalStorageState } from "./useLocalStorageState.js";
 
 export const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -20,13 +22,8 @@ export const KEY = "8b7433cd";
 export default function App() {
   const [query, setQuery] = useState("");
   const [selectedID, setSelectedID] = useState(null);
-  const [movies, setMovies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [watched, setWatched] = useState(function () {
-    const storedValue = localStorage.getItem("watched");
-    return JSON.parse(storedValue);
-  });
+  const [watched, setWatched] = useLocalStorageState([], "watched");
+  const { movies, isLoading, error } = useMovies(query);
 
   function handleSelectMovie(id) {
     setSelectedID(() => (id === selectedID ? null : id));
@@ -43,64 +40,6 @@ export default function App() {
   function handleDeleteWatched(id) {
     setWatched(() => watched.filter((movie) => id !== movie.imdbID));
   }
-
-  useEffect(
-    function () {
-      localStorage.setItem("watched", JSON.stringify(watched));
-    },
-    [watched]
-  );
-
-  useEffect(
-    function () {
-      // The AbortController API
-      const controller = new AbortController();
-
-      async function fetchMovies() {
-        try {
-          setIsLoading(true);
-          setError("");
-
-          // Set signal property
-          const res = await fetch(
-            `http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=${query}`,
-            { signal: controller.signal }
-          );
-
-          if (!res.ok)
-            throw new Error("Something went wrong with fatching movies");
-
-          const data = await res.json();
-
-          if (query.length < 3) {
-            setMovies([]);
-            setError("");
-            return;
-          }
-
-          // Jika query tidak ditemukan
-          if (data.Response === "False") throw new Error("Movie not found");
-          setMovies(data.Search);
-          setError("");
-        } catch (err) {
-          // Setting up Error
-          if (err.name !== "AbortError") {
-            setError(err.message);
-            console.error(err.message);
-          }
-        } finally {
-          setIsLoading(false);
-        }
-      }
-      fetchMovies();
-
-      // Clean up Fungsi
-      return function () {
-        controller.abort();
-      };
-    },
-    [query]
-  );
 
   return (
     <>
