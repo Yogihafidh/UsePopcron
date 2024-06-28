@@ -8,7 +8,7 @@ usePopcorn is an application that serves to browse movies, rate them, and manage
 
 # Features
 | Features | Description |
-| :---: | :---: | 
+| :--- | :--- | 
 | The search and explore feature | Allows users to search for films and series by title. Search results contain detailed information including title, year of publication, and film poster. |
 | Features to rate films and add to watch | Users can rate the films they see and then add them to a watch list. This list helps you organize and track your watched content. The film will be saved in the browser's local storage. |
 | Aggregate Scoring feature | The app automatically calculates an average score for a film based on user evaluations. This gives a quick idea of how favorable content is to the majority of its audience. |
