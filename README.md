@@ -12,3 +12,8 @@ usePopcorn is an application that serves to browse movies, rate them, and manage
 - Aggregate Scoring feature: The app automatically calculates an average score for a film based on user evaluations. This gives a quick idea of how favorable content is to the majority of its audience.
 - Watch Duration Calculation Feature: This feature adds up the total running time of the films and series in the user's personal list. Thus, users can efficiently organize their viewing schedule and monitor their time allocation for enjoying their preferred entertainment.
 - Keyboard Shortcut Friendly. Press the Enter key to start the film search. Press the Esc key to close the film details
+
+# What I learned
+- API integration in react: In this project, I learned to display API data in react.js, and manage and create queries. In this project, I used OMDB API. Link API : https://www.omdbapi.com/
+- State and effect management: State management is used to transfer and update data between components, its uses are tracking rankings, lists, and averages. Effect management is to keep the data from the API in sync with the user interface, its use is during API fatching and query-based API fatching.
+- Project Structure and Modular Code: during this project, I learnt the project structure and modular structure of components, which works for easier maintenance and scalability. 
