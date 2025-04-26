@@ -19,3 +19,6 @@ usePopcorn is an application that serves to browse movies, rate them, and manage
 - API integration in react: In this project, I learned to display API data in react.js, and manage and create queries. In this project, I used OMDB API. Link API : https://www.omdbapi.com/
 - State and effect management: State management is used to transfer and update data between components, its uses are tracking rankings, lists, and averages. Effect management is to keep the data from the API in sync with the user interface, its use is during API fatching and query-based API fatching.
 - Project Structure and Modular Code: during this project, I learned the project structure and modular structure of components, which works for easier maintenance and scalability. 
+
+# Documentation
+![screencapture-usepopcorn-netlify-app-2025-04-26-20_53_54](https://github.com/user-attachments/assets/00d9edc3-0076-4da2-8cc8-f33ef68e34ab)
